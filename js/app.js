@@ -8,12 +8,12 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
 
     //The movement speed of the enemy - range 1-10
-    this.speed = Math.floor((Math.random() * 10) + 1);
+    this.speed = Math.floor((Math.random() * 100) + 10);
 
     //The row of paving the enemy is allocated to - range 1-3
     this.row =  Math.floor((Math.random() * 3) + 1);
 
-    this.x = 0; //-101
+    this.x = -101;
     this.y = this.row * 83;
 };
 
@@ -24,6 +24,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x = this.x + (this.speed * dt);
+    if (this.x > (101 * 5)) this.x = -101;
 };
 
 // Draw the enemy on the screen, required method for game

@@ -8,13 +8,12 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
 
     //The movement speed of the enemy - range 1-10
-    this.speed = Math.floor((Math.random() * 100) + 10);
+    this.speed = Math.floor((Math.random() * 150) + 10);
 
     //The row of paving the enemy is allocated to - range 1-3
     this.row =  Math.floor((Math.random() * 3) + 1);
-
-    this.x = -101;
-    this.y = this.row * 83;
+    this.y = (this.row * 83) - 25;
+    this.reset();
 };
 
 // Update the enemy's position, required method for game
@@ -23,8 +22,8 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x + (this.speed * dt);
-    if (this.x > (101 * 5)) this.x = -101;
+    this.x = this.x + (this.speed * (4 - this.row) * dt);
+    if (this.x > (101 * 5)) this.reset();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -32,12 +31,36 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Enemy.prototype.reset = function() {
+    //The column of paving the enemy is allocated to - range 1-5
+    this.column =  Math.floor((Math.random() * 5) + 1);
+    this.x = this.column * -101;
+  }
+
+
 // Player class
-var Player = function() {
+var Player = function(type) {
   // Variables applied to each player instance go here,
 
   // The image/sprite for our player
-    this.sprite = 'images/char-princess-girl.png';
+  switch(type){
+    case "cat-girl":
+      this.sprite = 'images/char-cat-girl.png';
+      break
+    case "horn-girl":
+      this.sprite = 'images/char-horn-girl.png';
+      break
+    case "pink-girl":
+      this.sprite = 'images/char-pink-girl.png';
+      break
+    case "princess-girl":
+      this.sprite = 'images/char-princess-girl.png';
+      break
+    case "boy":
+    default:
+      this.sprite = 'images/char-boy.png';
+      break
+  }
 
 }
 
@@ -56,10 +79,13 @@ Player.prototype.handleInput = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
-allEnemies.push(new Enemy());
+enemyCount = 5;
+for(var myEnemies = 0; (myEnemies < enemyCount); myEnemies++){
+  allEnemies.push(new Enemy());
+}
 
 // Place the player object in a variable called player
-var player = new Player();
+var player = new Player("princess-girl");
 
 
 // This listens for key presses and sends the keys to your

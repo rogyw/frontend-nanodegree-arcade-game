@@ -6,13 +6,6 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-
-    //The movement speed of the enemy - range 1-10
-    this.speed = Math.floor((Math.random() * 150) + 10);
-
-    //The row of paving the enemy is allocated to - range 1-3
-    this.row =  Math.floor((Math.random() * 3) + 1);
-    this.y = (this.row * 83) - 25;
     this.reset();
 };
 
@@ -32,6 +25,13 @@ Enemy.prototype.render = function() {
 };
 
 Enemy.prototype.reset = function() {
+      //The movement speed of the enemy - range 1-10
+    this.speed = Math.floor((Math.random() * 150) + 10);
+
+    //The row of paving the enemy is allocated to - range 1-3
+    this.row =  Math.floor((Math.random() * 3) + 1);
+    this.y = (this.row * 83) - 25;
+
     //The column of paving the enemy is allocated to - range 1-5
     this.column =  Math.floor((Math.random() * 5) + 1);
     this.x = this.column * -101;

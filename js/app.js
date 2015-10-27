@@ -41,6 +41,8 @@ Enemy.prototype.reset = function() {
 // Player class
 var Player = function(type) {
   // Variables applied to each player instance go here,
+    this.score = 0;
+    this.lives = 5;
 
   // The image/sprite for our player
   switch(type){
@@ -67,10 +69,11 @@ var Player = function(type) {
 
 }
 
+Player.prototype.die = function() {
+  this.lives--;
+  this.reset();
+}
 Player.prototype.reset = function() {
-      //The movement speed of the player
-    this.speed = 200;
-
     //The row of grass
     this.row = 5;
     this.y = this.row * 83;
@@ -80,6 +83,13 @@ Player.prototype.reset = function() {
     this.x = this.column * 101;
   }
 
+Player.prototype.displayScore = function() {
+  ctx.fillStyle = "black";
+  ctx.font = "bold 20pt sans-serif";
+  ctx.textBaseline = "top";
+  ctx.clearRect(0,10, 505, 25 )
+  ctx.fillText("Score: " + this.score + "     Lives: " + this.lives, 10, 10);
+}
 
 Player.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
@@ -87,6 +97,7 @@ Player.prototype.update = function(dt) {
     // all computers.
     this.x = this.column * 101;
     this.y = this.row * 83 - 25;
+    this.displayScore();
 }
 
 Player.prototype.render = Enemy.prototype.render;
@@ -100,9 +111,14 @@ Player.prototype.handleInput = function(direction) {
       }
       break;
     case 'up':
-      if(this.row > 0) {
+      if(this.row > 1) {
         this.row--;
       }
+      else if(this.row <= 1 ) {
+        this.score++;
+        this.reset();
+      }
+
       break;
     case 'right':
       if(this.column < 4) {

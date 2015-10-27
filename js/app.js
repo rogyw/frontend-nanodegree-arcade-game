@@ -62,17 +62,61 @@ var Player = function(type) {
       break
   }
 
-}
-
-Player.prototype.update = function() {
-
-}
-
-Player.prototype.render = function() {
+  //The initial position
+  this.reset();
 
 }
 
-Player.prototype.handleInput = function() {
+Player.prototype.reset = function() {
+      //The movement speed of the player
+    this.speed = 200;
+
+    //The row of grass
+    this.row = 5;
+    this.y = this.row * 83;
+
+    //The column of grass
+    this.column =  2;
+    this.x = this.column * 101;
+  }
+
+
+Player.prototype.update = function(dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+    this.x = this.column * 101;
+    this.y = this.row * 83 - 25;
+}
+
+Player.prototype.render = Enemy.prototype.render;
+
+Player.prototype.handleInput = function(direction) {
+
+  switch(direction) {
+    case 'left':
+      if(this.column > 0) {
+        this.column--;
+      }
+      break;
+    case 'up':
+      if(this.row > 0) {
+        this.row--;
+      }
+      break;
+    case 'right':
+      if(this.column < 4) {
+        this.column++;
+      }
+      break;
+    case 'down':
+      if(this.row < 5) {
+        this.row++;
+      }
+      break;
+    default:
+      break;
+    };
 
 }
 

@@ -1,20 +1,27 @@
-// Enemies our player must avoid
+/**
+ * Creates a new Enemy.
+ * @constructor
+ * @description: represents an Enemy our player must avoid
+ */
 var Enemy = function() {
-  // Variables applied to each of our instances go here,
-  // we've provided one for you to get started
+  // Variables applied to each of our instances go here
 
   // The image/sprite for our enemies, this uses
   // a helper we've provided to easily load images
   this.sprite = 'images/enemy-bug.png';
+
+  // Establish the initial state of the Enemy
   this.reset();
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+
+/**
+ * @description: Update the enemy's position, required method for game
+ * @param {number} dt - a time delta between ticks. You should multiply any movement
+ *   by the dt parameter which will ensure the game runs at the same speed for
+ *   all computers.
+ */
 Enemy.prototype.update = function(dt) {
-  // You should multiply any movement by the dt parameter
-  // which will ensure the game runs at the same speed for
-  // all computers.
 
   //Move the Enemy position
   this.x = this.x + (this.speed * (4 - this.row) * dt);
@@ -24,17 +31,24 @@ Enemy.prototype.update = function(dt) {
   this.checkCollision();
 };
 
+
+/**
+ * @description: Checks for colision between this enemy and player
+ */
 Enemy.prototype.checkCollision = function() {
+  //Calculate player block area
   var pLeft = player.x + player.sideMargin;
   var pRight = player.x + 101 - player.sideMargin;
   var pTop = player.y + player.topMargin;
   var pBottom = pTop + player.playerHeight;
 
+  //Calculate enemy block area
   var eLeft = this.x;
   var eRight = this.x + 101;
   var eTop = this.y + 77;
   var eBottom = eTop + 65;
 
+  //Check for overlap of enemy and player
   if ((eRight > pLeft) && (eLeft < pRight) && (eBottom > pTop) && (eTop < pBottom)) {
     console.log("**HIT!**");
     console.log("player = (" + pLeft + "," + pTop + " - " + pRight + "," + pBottom + ")");
@@ -43,13 +57,20 @@ Enemy.prototype.checkCollision = function() {
   }
 };
 
-// Draw the enemy on the screen, required method for game
+
+/**
+ * @description: Draw the enemy on the screen, required method for game
+ */
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
+/**
+ * @description:  Establish or reset the initial state of the Enemy
+ */
 Enemy.prototype.reset = function() {
-  //The movement speed of the enemy - range 1-10
+  //The movement speed of the enemy - range 10-150
   this.speed = Math.floor((Math.random() * 150) + 10);
 
   //The row of paving the enemy is allocated to - range 1-3
@@ -62,13 +83,22 @@ Enemy.prototype.reset = function() {
 }
 
 
-// Player class
+ /**
+ * Creates a new Player.
+ * @constructor
+ * @description: represents the player of the game
+ * @param {string} type - the type of image/sprite to use for the player
+ *   Valid values are: "cat-girl","horn-girl","pink-girl","princess-girl","boy"
+ *   Defaults to "boy".
+ */
 var Player = function(type) {
   // Variables applied to each player instance go here,
+  // Score display variables
   this.score = 0;
   this.lives = 5;
   this.message = "";
 
+  // image/sprite internal dimensions variables
   this.sideMargin = 15;
   this.topMargin = 50;
   this.playerHeight = 76;
@@ -95,9 +125,12 @@ var Player = function(type) {
 
   //The initial position
   this.reset();
-
 }
 
+
+/**
+ * @description: action player life lost
+ */
 Player.prototype.die = function() {
   this.lives--;
 
@@ -110,6 +143,10 @@ Player.prototype.die = function() {
   this.reset();
 }
 
+
+/**
+ * @description: players initial position for life start
+ */
 Player.prototype.reset = function() {
   //The row of grass
   this.row = 5;
@@ -124,6 +161,11 @@ Player.prototype.reset = function() {
   }
 }
 
+
+/**
+ * @description: check if game is finished
+ * @returns true  - game is finished, false - player has life remaining
+ */
 Player.prototype.gameOver = function() {
   if (this.lives <= 0) {
     return true;
@@ -132,6 +174,10 @@ Player.prototype.gameOver = function() {
   }
 }
 
+
+/**
+ * @description: output the game status and messages
+ */
 Player.prototype.displayScore = function() {
   ctx.fillStyle = "black";
   ctx.font = "bold 20pt sans-serif";
@@ -140,17 +186,31 @@ Player.prototype.displayScore = function() {
   ctx.fillText("Score: " + this.score + "     Lives: " + this.lives + "   " + this.message, 10, 10);
 }
 
+
+/**
+ * @description: Update the player's position, required method for game
+ * @param {number} dt - a time delta between ticks. Any incremental movement should
+ *   be multiplied by the dt parameter which will ensure the game runs at the same speed for
+ *   all computers.
+ */
 Player.prototype.update = function(dt) {
-  // You should multiply any movement by the dt parameter
-  // which will ensure the game runs at the same speed for
-  // all computers.
   this.x = this.column * 101;
   this.y = this.row * 83;
   this.displayScore();
 }
 
+
+/**
+ * @description: Draw the player on the screen, required method for game
+ */
 Player.prototype.render = Enemy.prototype.render;
 
+
+/**
+ * @description: Handle the user input for game play
+ * param {string} direction - the player movement direction
+ *   valid values include: "left", "right", "up", "down".
+ */
 Player.prototype.handleInput = function(direction) {
 
   //Stop moving after game over
@@ -162,18 +222,17 @@ Player.prototype.handleInput = function(direction) {
         this.column--;
       }
       break;
+    case 'right':
+      if (this.column < 4) {
+        this.column++;
+      }
+      break;
     case 'up':
       if (this.row > 1) {
         this.row--;
       } else if (this.row <= 1) {
         this.score++;
         this.reset();
-      }
-
-      break;
-    case 'right':
-      if (this.column < 4) {
-        this.column++;
       }
       break;
     case 'down':
@@ -184,21 +243,19 @@ Player.prototype.handleInput = function(direction) {
     default:
       break;
   };
-
 }
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
-enemyCount = 5;
-for (var myEnemies = 0;
-  (myEnemies < enemyCount); myEnemies++) {
+var enemyCount = 6;
+for (var myEnemies = 0; (myEnemies < enemyCount); myEnemies++) {
   allEnemies.push(new Enemy());
 }
 
 // Place the player object in a variable called player
 var player = new Player("princess-girl");
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

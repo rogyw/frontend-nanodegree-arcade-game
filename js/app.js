@@ -196,6 +196,9 @@ Player.prototype.reset = function() {
   if ((this.score > 0) && ((this.score % 10) == 0)) {
     this.message = "   Well done!";
   }
+  else if(this.message == "   Well done!"){
+    this.message = "";
+  }
 }
 
 

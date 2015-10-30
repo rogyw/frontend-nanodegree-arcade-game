@@ -1,3 +1,6 @@
+/* app.js
+ * This is the main application file.
+ */
 
 //Constants
 var GAME_TILE_WIDTH = 101;
@@ -117,7 +120,7 @@ Enemy.prototype.reset = function() {
   //The column of paving the enemy is allocated to - range 1-GAME_GRID_COLUMNS
   this.column = Math.floor((Math.random() * GAME_GRID_COLUMNS) + 1);
   this.x = this.column * GAME_TILE_WIDTH * -1;
-}
+};
 
 
 /**
@@ -144,25 +147,25 @@ var Player = function(type) {
   switch (type) {
     case "cat-girl":
       this.sprite = 'images/char-cat-girl.png';
-      break
+      break;
     case "horn-girl":
       this.sprite = 'images/char-horn-girl.png';
-      break
+      break;
     case "pink-girl":
       this.sprite = 'images/char-pink-girl.png';
-      break
+      break;
     case "princess-girl":
       this.sprite = 'images/char-princess-girl.png';
-      break
+      break;
     case "boy":
     default:
       this.sprite = 'images/char-boy.png';
-      break
+      break;
   }
 
   //The initial position
   this.reset();
-}
+};
 
 
 /**
@@ -178,7 +181,7 @@ Player.prototype.die = function() {
   }
 
   this.reset();
-}
+};
 
 
 /**
@@ -193,13 +196,12 @@ Player.prototype.reset = function() {
   this.column = Math.floor(GAME_GRID_COLUMNS / 2);
   this.x = this.column * GAME_TILE_WIDTH;
 
-  if ((this.score > 0) && ((this.score % 10) == 0)) {
+  if ((this.score > 0) && ((this.score % 10) === 0)) {
     this.message = "   Well done!";
-  }
-  else if(this.message == "   Well done!"){
+  } else if (this.message == "   Well done!") {
     this.message = "";
   }
-}
+};
 
 
 /**
@@ -212,7 +214,7 @@ Player.prototype.gameOver = function() {
   } else {
     return false;
   }
-}
+};
 
 
 /**
@@ -222,9 +224,9 @@ Player.prototype.displayScore = function() {
   ctx.fillStyle = "black";
   ctx.font = "bold 20pt sans-serif";
   ctx.textBaseline = "top";
-  ctx.clearRect(0, 10, CANVAS_WIDTH, 25)
+  ctx.clearRect(0, 10, CANVAS_WIDTH, 25);
   ctx.fillText("Score: " + this.score + "     Lives: " + this.lives + "   " + this.message, 10, 10);
-}
+};
 
 
 /**
@@ -237,7 +239,7 @@ Player.prototype.update = function(dt) {
   this.x = this.column * GAME_TILE_WIDTH;
   this.y = (this.row * GAME_TILE_HEIGHT) - PLAYER_Y_OFFSET;
   this.displayScore();
-}
+};
 
 
 /**
@@ -282,8 +284,8 @@ Player.prototype.handleInput = function(direction) {
       break;
     default:
       break;
-  };
-}
+  }
+};
 
 
 // Now instantiate your objects.

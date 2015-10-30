@@ -1,3 +1,4 @@
+//Constants
 var GAME_TILE_WIDTH = 101;
 var GAME_TILE_HEIGHT = 83;
 var GAME_GRID_COLUMNS = 5;
@@ -8,6 +9,7 @@ var GAME_GRID_ROWS_GRASS = 2;
 var ENEMY_SPEED_MAX = 150;
 var ENEMY_SPEED_MIN = 10;
 var ENEMY_Y_OFFSET = 20;
+var PLAYER_Y_OFFSET = 20;
 var ENEMY_WIDTH = GAME_TILE_WIDTH;
 var ENEMY_TOP_MARGIN = 77;
 var ENEMY_HEIGHT = 65;
@@ -122,9 +124,9 @@ var Player = function(type) {
   this.message = "";
 
   // image/sprite internal dimensions variables
-  this.sideMargin = 15;
-  this.topMargin = 50;
-  this.playerHeight = 76;
+  this.sideMargin = 20;
+  this.topMargin = 77;
+  this.playerHeight = 68;
 
   // The image/sprite for our player
   switch (type) {
@@ -218,7 +220,7 @@ Player.prototype.displayScore = function() {
  */
 Player.prototype.update = function(dt) {
   this.x = this.column * GAME_TILE_WIDTH;
-  this.y = this.row * GAME_TILE_HEIGHT;
+  this.y = (this.row * GAME_TILE_HEIGHT) - PLAYER_Y_OFFSET;
   this.displayScore();
 }
 

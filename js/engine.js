@@ -25,8 +25,8 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 505;
-    canvas.height = 606;
+    canvas.width = CANVAS_WIDTH;
+    canvas.height = CANVAS_HEIGHT;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -102,22 +102,28 @@ var Engine = (function(global) {
      * game tick (or loop of the game engine) because that's how games work -
      * they are flipbooks creating the illusion of animation but in reality
      * they are just drawing the entire screen over and over.
+     * Requires constants to be defined: GAME_GRID_ROWS, GAME_GRID_COLUMNS,
+     * GAME_GRID_ROWS_WATER, GAME_GRID_ROWS_PAVE, GAME_GRID_ROWS_GRASS
      */
     function render() {
-        /* This array holds the relative URL to the image used
+        /* rowImages array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
-            ],
-            numRows = 6,
-            numCols = 5,
+        var rowImages = [];
+        var numRows = GAME_GRID_ROWS,
+            numCols = GAME_GRID_COLUMNS,
             row, col;
+
+        //Build the array containing tile image to be used for each row
+        for (row = 0; row < GAME_GRID_ROWS_WATER; row++) {
+          rowImages.push('images/water-block.png'); // Top row is water
+        };
+        for (row = 0; row < GAME_GRID_ROWS_PAVE; row++) {
+          rowImages.push('images/stone-block.png'); // Rows of stone
+        };
+        for (row = 0; row < GAME_GRID_ROWS_GRASS; row++) {
+          rowImages.push('images/grass-block.png'); // Rows of grass
+        };
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
@@ -172,7 +178,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-princess-girl.png'
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
+        'images/char-boy.png'
     ]);
     Resources.onReady(init);
 

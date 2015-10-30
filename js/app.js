@@ -1,19 +1,31 @@
+
 //Constants
 var GAME_TILE_WIDTH = 101;
 var GAME_TILE_HEIGHT = 83;
-var GAME_GRID_COLUMNS = 5;
-var GAME_GRID_ROWS = 6;
-var GAME_GRID_ROWS_WATER = 1;
-var GAME_GRID_ROWS_PAVE = 3;
-var GAME_GRID_ROWS_GRASS = 2;
-var ENEMY_SPEED_MAX = 150;
-var ENEMY_SPEED_MIN = 10;
 var ENEMY_Y_OFFSET = 20;
 var PLAYER_Y_OFFSET = 20;
 var ENEMY_WIDTH = GAME_TILE_WIDTH;
 var ENEMY_TOP_MARGIN = 77;
 var ENEMY_HEIGHT = 65;
+
+//Define the Game playing grid area here
+var GAME_GRID_COLUMNS = 5;
+var GAME_GRID_ROWS = 8;
+var GAME_GRID_ROWS_WATER = 1;
+var GAME_GRID_ROWS_PAVE = 5;
+var GAME_GRID_ROWS_GRASS = 2;
+
+//Change Enemy speed and quantity here
+var ENEMY_SPEED_MAX = 150;
+var ENEMY_SPEED_MIN = 10;
 var ENEMY_QTY = 6;
+
+//Change Player Lives
+var PLAYER_START_LIVES = 5;
+
+//Define the Canvas size
+var CANVAS_WIDTH = GAME_TILE_WIDTH * GAME_GRID_COLUMNS;
+var CANVAS_HEIGHT = GAME_TILE_HEIGHT * GAME_GRID_ROWS + 108;
 
 
 /**
@@ -120,7 +132,7 @@ var Player = function(type) {
   // Variables applied to each player instance go here,
   // Score display variables
   this.score = 0;
-  this.lives = 5;
+  this.lives = PLAYER_START_LIVES;
   this.message = "";
 
   // image/sprite internal dimensions variables
@@ -174,15 +186,15 @@ Player.prototype.die = function() {
  */
 Player.prototype.reset = function() {
   //The row of grass
-  this.row = 5;
+  this.row = GAME_GRID_ROWS - 1;
   this.y = this.row * GAME_TILE_HEIGHT;
 
   //The column of grass
-  this.column = 2;
+  this.column = Math.floor(GAME_GRID_COLUMNS / 2);
   this.x = this.column * GAME_TILE_WIDTH;
 
-  if (this.score > 20) {
-    this.message = "   Well done!"
+  if ((this.score > 0) && ((this.score % 10) == 0)) {
+    this.message = "   Well done!";
   }
 }
 
@@ -207,7 +219,7 @@ Player.prototype.displayScore = function() {
   ctx.fillStyle = "black";
   ctx.font = "bold 20pt sans-serif";
   ctx.textBaseline = "top";
-  ctx.clearRect(0, 10, 505, 25)
+  ctx.clearRect(0, 10, CANVAS_WIDTH, 25)
   ctx.fillText("Score: " + this.score + "     Lives: " + this.lives + "   " + this.message, 10, 10);
 }
 
@@ -261,7 +273,7 @@ Player.prototype.handleInput = function(direction) {
       }
       break;
     case 'down':
-      if (this.row < 5) {
+      if (this.row < (GAME_GRID_ROWS - 1)) {
         this.row++;
       }
       break;

@@ -1,5 +1,5 @@
 /* app.js
- * This is the main application file.
+ * This is the application file defining CONSTANTS, Player, Enemy.
  */
 
 //Constants
@@ -30,6 +30,7 @@ var PLAYER_START_LIVES = 5;
 var CANVAS_WIDTH = GAME_TILE_WIDTH * GAME_GRID_COLUMNS;
 var CANVAS_HEIGHT = GAME_TILE_HEIGHT * GAME_GRID_ROWS + 108;
 
+var DEBUG = true;
 
 /**
  * Creates a new Enemy.
@@ -90,9 +91,9 @@ Enemy.prototype.checkCollision = function() {
 
   //Check for overlap of enemy and player
   if ((eRight > pLeft) && (eLeft < pRight) && (eBottom > pTop) && (eTop < pBottom)) {
-    //console.log("**HIT!**");
-    //console.log("player = (" + pLeft + "," + pTop + " - " + pRight + "," + pBottom + ")");
-    //console.log("enemy = (" + Math.ceil(eLeft) + "," + Math.ceil(eTop) + " - " + Math.ceil(eRight) + "," + Math.ceil(eBottom) + ")");
+    if (DEBUG == true) console.log("Enemy.checkCollision() **HIT!**");
+    if (DEBUG == true) console.log("Enemy.checkCollision() player = (" + pLeft + "," + pTop + " - " + pRight + "," + pBottom + ")");
+    if (DEBUG == true) console.log("Enemy.checkCollision() enemy = (" + Math.ceil(eLeft) + "," + Math.ceil(eTop) + " - " + Math.ceil(eRight) + "," + Math.ceil(eBottom) + ")");
     player.die();
   }
 };
@@ -250,7 +251,7 @@ Player.prototype.render = Enemy.prototype.render;
 
 /**
  * @description: Handle the user input for game play
- * param {string} direction - the player movement direction
+ * @param {string} direction - the player movement direction
  *   valid values include: "left", "right", "up", "down".
  */
 Player.prototype.handleInput = function(direction) {
@@ -287,28 +288,46 @@ Player.prototype.handleInput = function(direction) {
   }
 };
 
+/**
+ * @description: Calculates movement direction based on click
+ * @param {string} clickX - the Canvas click x coordinate
+ * @param {string} clickY - the Canvas click y coordinate
+ * @returns {string} with values including: "left", "right", "up", "down", "".
+ */
+Player.prototype.checkClick = function(clickX,clickY) {
+  var direction = "";
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-var allEnemies = [];
-var enemyCount = ENEMY_QTY;
-for (var myEnemies = 0;
-  (myEnemies < enemyCount); myEnemies++) {
-  allEnemies.push(new Enemy());
-}
+  if (DEBUG == true) console.log("Player.checkClick() (X,Y) = (" + clickX + "," + clickY + ")");
 
-// Place the player object in a variable called player
-var player = new Player("princess-girl");
+  //Calculate player block area
+  var pLeft = this.x;
+  var pRight = this.x + GAME_TILE_WIDTH;
+  var pTop = this.y;
+  var pBottom = pTop + GAME_TILE_HEIGHT;
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
-  var allowedKeys = {
-    37: 'left',
-    38: 'up',
-    39: 'right',
-    40: 'down'
+  if (DEBUG == true) console.log("Player.checkClick()  player (L,T - R,B) = ("+ pLeft + "," + pTop + " - " + pRight + "," + pBottom + ")");
+
+  //Test for *UP*
+  if ((clickY < pTop) && (clickX > pLeft) && (clickX < pRight)){
+    direction = 'up';
   };
 
-  player.handleInput(allowedKeys[e.keyCode]);
-});
+  //Test for *DOWN*
+  if ((clickY > pBottom) && (clickX > pLeft) && (clickX < pRight)){
+    direction =  'down';
+  };
+
+  //Test for *LEFT*
+  if ((clickX < pLeft) && (clickY > pTop) && (clickY < pBottom)){
+    direction = 'left';
+  };
+
+  //Test for *RIGHT*
+  if ((clickX > pRight) && (clickY > pTop) && (clickY < pBottom)){
+    direction =  'right';
+  };
+
+  //Default
+  if (DEBUG == true) console.log("Player.checkClick() direction =" + direction);
+  return direction;
+};

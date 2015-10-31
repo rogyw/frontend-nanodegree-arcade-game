@@ -299,31 +299,37 @@ Player.prototype.checkClick = function(clickX,clickY) {
 
   if (DEBUG == true) console.log("Player.checkClick() (X,Y) = (" + clickX + "," + clickY + ")");
 
+
+
+  var pTop = player.y + player.topMargin;
+  var pBottom = pTop + player.playerHeight;
+
+
   //Calculate player block area
   var pLeft = this.x;
   var pRight = this.x + GAME_TILE_WIDTH;
-  var pTop = this.y;
+  var pTop = this.y + 70;
   var pBottom = pTop + GAME_TILE_HEIGHT;
 
-  if (DEBUG == true) console.log("Player.checkClick()  player (L,T - R,B) = ("+ pLeft + "," + pTop + " - " + pRight + "," + pBottom + ")");
+  if (DEBUG) console.log("Player.checkClick()  player (L,T - R,B) = ("+ pLeft + "," + pTop + " - " + pRight + "," + pBottom + ")");
 
   //Test for *UP*
-  if ((clickY < pTop) && (clickX > pLeft) && (clickX < pRight)){
+  if ((clickY < pTop) && (clickY > pTop - GAME_TILE_HEIGHT) && (clickX > pLeft) && (clickX < pRight)){
     direction = 'up';
   };
 
   //Test for *DOWN*
-  if ((clickY > pBottom) && (clickX > pLeft) && (clickX < pRight)){
+  if ((clickY > pBottom) && (clickY < pBottom + GAME_TILE_HEIGHT) && (clickX > pLeft) && (clickX < pRight)){
     direction =  'down';
   };
 
   //Test for *LEFT*
-  if ((clickX < pLeft) && (clickY > pTop) && (clickY < pBottom)){
+  if ((clickX < pLeft) && (clickX > pLeft - GAME_TILE_WIDTH) && (clickY > pTop) && (clickY < pBottom)){
     direction = 'left';
   };
 
   //Test for *RIGHT*
-  if ((clickX > pRight) && (clickY > pTop) && (clickY < pBottom)){
+  if ((clickX > pRight) && (clickX < pRight + GAME_TILE_WIDTH) && (clickY > pTop) && (clickY < pBottom)){
     direction =  'right';
   };
 

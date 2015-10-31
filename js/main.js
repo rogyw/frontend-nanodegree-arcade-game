@@ -37,7 +37,15 @@ var myCanvas = canvasArray[0];
  */
 myCanvas.addEventListener('click', function(e) {
   var move;
-  move = player.checkClick(e.clientX, e.clientY);
+
+  //Convert the click location to Canvas position using http://stackoverflow.com/a/18053642
+  var rect = myCanvas.getBoundingClientRect();
+  var x = e.clientX - rect.left;
+  var y = e.clientY - rect.top;
+
+  if (DEBUG) console.log("myCanvas.addEventListener: x: " + x + " y: " + y);
+
+  move = player.checkClick(x, y);
   player.handleInput(move);
 });
 

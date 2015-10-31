@@ -222,7 +222,7 @@ Player.prototype.gameOver = function() {
  * @description: output the game status and messages
  */
 Player.prototype.displayScore = function() {
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "gold";
   ctx.font = "bold 20pt sans-serif";
   ctx.textBaseline = "top";
   ctx.clearRect(0, 10, CANVAS_WIDTH, 25);

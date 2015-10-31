@@ -1,8 +1,16 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-How to Play
-------------
+Documentation
+-------------
+
+### Installation of Game
+This game can be played online using a modern web browser.
+[Play online now!](http://rogyw.github.io/frontend-nanodegree-arcade-game/)
+
+The game has been confirmed to operate successfully on the following:
+ - Keyboard/Mouse: Windows 10 and browsers Chrome, Internet Explorer 11, Firefox, or Edge.
+ - Touch: Motorola Moto G LTE (Android Lollipop) with Chrome or Firefox.
 
 ### Object of the Game:
 Move the boy/girl upwards to jump into the big puddle - avoiding the bugs travelling along the pavement.
@@ -20,8 +28,12 @@ Each time the player jumps into the puddle one point is earned and the player is
 
 _Have fun!_
 
-About
-------------
+
+About "Jump in Puddle Arcade Game"
+-----------------------------------
 This game was created as part of Roger Woodroofe's [Udacity Front End Web Developer Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001) in October 2015. It is Project 3 - a practical exercise for the Udacity Object Oriented Javascript Course.
 
-This project is currently hosted live at: [http://rogyw.github.io/frontend-nanodegree-arcade-game/](http://rogyw.github.io/frontend-nanodegree-arcade-game/)
+Project source is currently hosted on [GitHub](http://rogyw.github.com/frontend-nanodegree-arcade-game/)
+
+Feedback, Suggestions, Comments, or Issues can be submitted via Github or through email rogyw@yahoo.co.nz
+

@@ -31,7 +31,7 @@ var canvasArray = document.getElementsByTagName("canvas");
 var myCanvas = canvasArray[0];
 
 /**
- * This listens for mouse clicks, calls player.checkClick
+ * This listens for clicks, calls player.checkClick
  * to check if its a valid move location and then sends move to
  * Player.handleInput() method.
  */

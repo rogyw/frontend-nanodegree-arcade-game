@@ -32,7 +32,7 @@ var CANVAS_WIDTH = GAME_TILE_WIDTH * GAME_GRID_COLUMNS;
 var CANVAS_HEIGHT = GAME_TILE_HEIGHT * GAME_GRID_ROWS + 108;
 
 //DEBUG enables selective debug output to Console Log
-var DEBUG = Boolean(true);
+var DEBUG = Boolean(false);
 
 /**
  * Creates a new Enemy.

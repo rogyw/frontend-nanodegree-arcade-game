@@ -23,14 +23,15 @@ var ENEMY_SPEED_MAX = 150;
 var ENEMY_SPEED_MIN = 10;
 var ENEMY_QTY = 6;
 
-//Change Player Lives
+//Define Player Lives
 var PLAYER_START_LIVES = 5;
 
 //Define the Canvas size
 var CANVAS_WIDTH = GAME_TILE_WIDTH * GAME_GRID_COLUMNS;
 var CANVAS_HEIGHT = GAME_TILE_HEIGHT * GAME_GRID_ROWS + 108;
 
-var DEBUG = true;
+//DEBUG enables selective debug output to Console Log
+var DEBUG = Boolean(true);
 
 /**
  * Creates a new Enemy.
@@ -91,9 +92,9 @@ Enemy.prototype.checkCollision = function() {
 
   //Check for overlap of enemy and player
   if ((eRight > pLeft) && (eLeft < pRight) && (eBottom > pTop) && (eTop < pBottom)) {
-    if (DEBUG == true) console.log("Enemy.checkCollision() **HIT!**");
-    if (DEBUG == true) console.log("Enemy.checkCollision() player = (" + pLeft + "," + pTop + " - " + pRight + "," + pBottom + ")");
-    if (DEBUG == true) console.log("Enemy.checkCollision() enemy = (" + Math.ceil(eLeft) + "," + Math.ceil(eTop) + " - " + Math.ceil(eRight) + "," + Math.ceil(eBottom) + ")");
+    if (DEBUG) console.log("Enemy.checkCollision() **HIT!**");
+    if (DEBUG) console.log("Enemy.checkCollision() player = (" + pLeft + "," + pTop + " - " + pRight + "," + pBottom + ")");
+    if (DEBUG) console.log("Enemy.checkCollision() enemy = (" + Math.ceil(eLeft) + "," + Math.ceil(eTop) + " - " + Math.ceil(eRight) + "," + Math.ceil(eBottom) + ")");
     player.die();
   }
 };
@@ -288,6 +289,7 @@ Player.prototype.handleInput = function(direction) {
   }
 };
 
+
 /**
  * @description: Calculates movement direction based on click
  * @param {string} clickX - the Canvas click x coordinate
@@ -297,13 +299,7 @@ Player.prototype.handleInput = function(direction) {
 Player.prototype.checkClick = function(clickX,clickY) {
   var direction = "";
 
-  if (DEBUG == true) console.log("Player.checkClick() (X,Y) = (" + clickX + "," + clickY + ")");
-
-
-
-  var pTop = player.y + player.topMargin;
-  var pBottom = pTop + player.playerHeight;
-
+  if (DEBUG) console.log("Player.checkClick() (X,Y) = (" + clickX + "," + clickY + ")");
 
   //Calculate player block area
   var pLeft = this.x;
@@ -316,24 +312,24 @@ Player.prototype.checkClick = function(clickX,clickY) {
   //Test for *UP*
   if ((clickY < pTop) && (clickY > pTop - GAME_TILE_HEIGHT) && (clickX > pLeft) && (clickX < pRight)){
     direction = 'up';
-  };
+  }
 
   //Test for *DOWN*
   if ((clickY > pBottom) && (clickY < pBottom + GAME_TILE_HEIGHT) && (clickX > pLeft) && (clickX < pRight)){
     direction =  'down';
-  };
+  }
 
   //Test for *LEFT*
   if ((clickX < pLeft) && (clickX > pLeft - GAME_TILE_WIDTH) && (clickY > pTop) && (clickY < pBottom)){
     direction = 'left';
-  };
+  }
 
   //Test for *RIGHT*
   if ((clickX > pRight) && (clickX < pRight + GAME_TILE_WIDTH) && (clickY > pTop) && (clickY < pBottom)){
     direction =  'right';
-  };
+  }
 
   //Default
-  if (DEBUG == true) console.log("Player.checkClick() direction =" + direction);
+  if (DEBUG) console.log("Player.checkClick() direction =" + direction);
   return direction;
 };

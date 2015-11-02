@@ -1,3 +1,4 @@
+"use strict";
 /* app.js
  * This is the application file defining CONSTANTS, Player, Enemy.
  */

@@ -10,7 +10,7 @@ This game can be played online using a modern web browser.
 
 The game has been confirmed to operate successfully on the following:
  - Keyboard/Mouse: Windows 10 and browsers Chrome, Internet Explorer 11, Firefox, or Edge.
- - Touch: Motorola Moto G LTE (Android Lollipop) with Chrome or Firefox.
+ - Touch: Android Lollipop with Chrome or Firefox; iPhone.
 
 ### Object of the Game:
 Move the boy/girl upwards to jump into the big puddle - avoiding the bugs travelling along the pavement.
@@ -19,8 +19,8 @@ Move the boy/girl upwards to jump into the big puddle - avoiding the bugs travel
 The player moves one space at a time up, down, left, or right.
 #### Keyboard:
 To move, press and release the keyboard arrow keys (Up / Down / Left / Right).
-#### Click:
-To move, click in the destination square next to current player location.
+#### Click/Touch Tap:
+To move, click or tap in the destination square next to current player location.
 #### Game Restart:
 Refresh the browser page (F5).
 #### Scoring:

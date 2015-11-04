@@ -32,7 +32,25 @@ var CANVAS_WIDTH = GAME_TILE_WIDTH * GAME_GRID_COLUMNS;
 var CANVAS_HEIGHT = GAME_TILE_HEIGHT * GAME_GRID_ROWS + 108;
 
 //DEBUG enables selective debug output to Console Log
-var DEBUG = Boolean(false);
+var DEBUG = false;
+
+/**
+ * @description: Base class for game objects
+ */
+var GameObject = function() {
+  // Variables applied to each of our instances go here
+    this.x = 0;
+    this.y = 0;
+    this.sprite = "images/star.png";  //default image
+};
+
+/**
+ * @description: Draw the object on the screen, required method for game
+ */
+GameObject.prototype.render = function() {
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
 
 /**
  * Creates a new Enemy.
@@ -40,6 +58,9 @@ var DEBUG = Boolean(false);
  * @description: represents an Enemy our player must avoid
  */
 var Enemy = function() {
+  //Enemy is a subclass of GameObject
+  GameObject.call(this);
+
   // Variables applied to each of our instances go here
 
   // The image/sprite for our enemies, this uses
@@ -52,6 +73,10 @@ var Enemy = function() {
   // Establish the initial state of the Enemy
   this.reset();
 };
+
+//Enemy is a subclass of GameObject
+Enemy.prototype = Object.create(GameObject.prototype);
+Enemy.prototype.constructor = Enemy;
 
 
 /**
@@ -102,14 +127,6 @@ Enemy.prototype.checkCollision = function() {
 
 
 /**
- * @description: Draw the enemy on the screen, required method for game
- */
-Enemy.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-
-/**
  * @description:  Establish or reset the initial state of the Enemy
  */
 Enemy.prototype.reset = function() {
@@ -135,6 +152,9 @@ Enemy.prototype.reset = function() {
  *   Defaults to "boy".
  */
 var Player = function(type) {
+  //Enemy is a subclass of GameObject
+  GameObject.call(this);
+
   // Variables applied to each player instance go here,
   // Score display variables
   this.score = 0;
@@ -169,6 +189,10 @@ var Player = function(type) {
   //The initial position
   this.reset();
 };
+
+//Player is a subclass of GameObject
+Player.prototype = Object.create(GameObject.prototype);
+Player.prototype.constructor = Player;
 
 
 /**
@@ -243,12 +267,6 @@ Player.prototype.update = function(dt) {
   this.y = (this.row * GAME_TILE_HEIGHT) - PLAYER_Y_OFFSET;
   this.displayScore();
 };
-
-
-/**
- * @description: Draw the player on the screen, required method for game
- */
-Player.prototype.render = Enemy.prototype.render;
 
 
 /**

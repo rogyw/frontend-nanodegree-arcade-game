@@ -33,7 +33,7 @@ About "Jump in Puddle Arcade Game"
 -----------------------------------
 This game was created as part of Roger Woodroofe's [Udacity Front End Web Developer Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001) in October 2015. It is Project 3 - a practical exercise for the Udacity Object Oriented Javascript Course.
 
-Project source is currently hosted on [GitHub](http://rogyw.github.com/frontend-nanodegree-arcade-game/)
+Project source is currently hosted on [GitHub](https://github.com/rogyw/frontend-nanodegree-arcade-game)
 
 Feedback, Suggestions, Comments, or Issues can be submitted via Github or through email rogyw@yahoo.co.nz
 
